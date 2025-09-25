@@ -1,0 +1,23 @@
+<?php
+require_once 'connect_database.php';
+
+if (isset($_POST['delete'])) {
+    $id = $_POST['id'];
+
+    $query = "DELETE FROM users WHERE id=$id";
+    $result = $conn->query($query);
+
+    if ($result) {
+        echo "Record deleted successfully! <a href='read.php'>Back to list</a>";
+    } else {
+        echo "Error: " . $conn->error;
+    }
+}
+?>
+<form method="post" action="" style="border: 1px solid #ccc; padding: 15px; width: 550px;">
+  <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+  Are you sure you want to delete this record?
+  <button type="submit" name="delete" style="background-color: red; color: white; padding: 8px 16px; border: none; border-radius: 3px;">
+    Delete
+  </button>
+</form>
