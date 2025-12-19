@@ -4,8 +4,10 @@ require_once 'connect_database.php';
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];
 
-    $query = "DELETE FROM users WHERE id=$id";
-    $result = $conn->query($query);
+    $stmt = $conn->prepare("DELETE FROM users WHERE id=?");
+    $stmt->bind_param("i", $id);
+    $result = $stmt->execute();
+    $stmt->close();
 
     if ($result) {
         echo "Record deleted successfully! <a href='read.php'>Back to list</a>";

@@ -5,8 +5,10 @@ if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
 
-    $query = "INSERT INTO users (name, email) VALUES ('$name', '$email')";
-    $result = $conn->query($query);
+    $stmt = $conn->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+    $stmt->bind_param("ss", $name, $email);
+    $result = $stmt->execute();
+    $stmt->close();
 
     if ($result) {
         echo "Record added successfully!";

@@ -6,8 +6,10 @@ if (isset($_POST['update'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
 
-    $query = "UPDATE users SET name='$name', email='$email' WHERE id=$id";
-    $result = $conn->query($query);
+    $stmt = $conn->prepare("UPDATE users SET name=?, email=? WHERE id=?");
+    $stmt->bind_param("ssi", $name, $email, $id);
+    $result = $stmt->execute();
+    $stmt->close();
 
     if ($result) {
         echo "Record updated successfully!";
