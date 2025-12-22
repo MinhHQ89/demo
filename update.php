@@ -30,6 +30,7 @@
     $result = $conn->query($query);
     $user = $result->fetch_assoc();
     ?>
+    <a href="read.php">Back to list</a>
     <form method="post" action="" style="border: 1px solid #ccc; padding: 15px; width: 550px;">
       <input type="hidden" name="id" value="<?php echo $id; ?>">
       Name: <input type="text" name="name" value="<?php echo $user['name']; ?>" required>

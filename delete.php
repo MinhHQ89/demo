@@ -17,12 +17,13 @@
         $stmt->close();
 
         if ($result) {
-            echo "Record deleted successfully! <a href='read.php'>Back to list</a>";
+            echo "Record deleted successfully!";
         } else {
             echo "Error: " . $conn->error;
         }
     }
     ?>
+    <a href="read.php">Back to list</a>
     <form method="post" action="" style="border: 1px solid #ccc; padding: 15px; width: 550px;">
       <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
       Are you sure you want to delete this record?
