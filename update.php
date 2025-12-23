@@ -3,6 +3,7 @@
   <head>
       <meta charset="UTF-8">
       <title>Update</title>
+      <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <?php
@@ -31,11 +32,11 @@
     $user = $result->fetch_assoc();
     ?>
     <a href="read.php">Back to list</a>
-    <form method="post" action="" style="border: 1px solid #ccc; padding: 15px; width: 550px;">
+    <form method="post" action="" class="form-container">
       <input type="hidden" name="id" value="<?php echo $id; ?>">
       Name: <input type="text" name="name" value="<?php echo $user['name']; ?>" required>
       Email: <input type="email" name="email" value="<?php echo $user['email']; ?>" required>
-      <button type="submit" name="update" style="background-color: #007bff; color: white; padding: 8px 16px; border: none; border-radius: 3px;">
+      <button type="submit" name="update" class="btn btn-primary">
         Update
       </button>
     </form>

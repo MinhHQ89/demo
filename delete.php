@@ -3,6 +3,7 @@
   <head>
       <meta charset="UTF-8">
       <title>Delete</title>
+      <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <?php
@@ -24,10 +25,10 @@
     }
     ?>
     <a href="read.php">Back to list</a>
-    <form method="post" action="" style="border: 1px solid #ccc; padding: 15px; width: 550px;">
+    <form method="post" action="" class="form-container">
       <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
       Are you sure you want to delete this record?
-      <button type="submit" name="delete" style="background-color: red; color: white; padding: 8px 16px; border: none; border-radius: 3px;">
+      <button type="submit" name="delete" class="btn btn-danger">
         Delete
       </button>
     </form>
