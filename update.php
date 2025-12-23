@@ -32,13 +32,12 @@
     $user = $result->fetch_assoc();
     ?>
     <a href="read.php">Back to list</a>
+    <h1>Update User</h1>
     <form method="post" action="" class="form-container">
       <input type="hidden" name="id" value="<?php echo $id; ?>">
       Name: <input type="text" name="name" value="<?php echo $user['name']; ?>" required>
       Email: <input type="email" name="email" value="<?php echo $user['email']; ?>" required>
-      <button type="submit" name="update" class="btn btn-primary">
-        Update
-      </button>
+      <button type="submit" name="update" class="btn btn-primary">Update</button>
     </form>
   </body>
 </html>

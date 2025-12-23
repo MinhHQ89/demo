@@ -25,12 +25,11 @@
     }
     ?>
     <a href="read.php">Back to list</a>
+    <h1>Delete User</h1>
     <form method="post" action="" class="form-container">
       <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
       Are you sure you want to delete this record?
-      <button type="submit" name="delete" class="btn btn-danger">
-        Delete
-      </button>
+      <button type="submit" name="delete" class="btn btn-danger">Delete</button>
     </form>
   </body>
 </html>

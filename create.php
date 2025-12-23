@@ -26,12 +26,11 @@
     }
     ?>
     <a href="read.php">Back to list</a>
+    <h1>Create New User</h1>
     <form method="post" action="" class="form-container">
       Name: <input type="text" name="name" required>
       Email: <input type="email" name="email" required>
-        <button type="submit" name="submit" class="btn btn-primary">
-          Submit
-        </button>
+        <button type="submit" name="submit" class="btn btn-primary">Create</button>
     </form>
   </body>
 </html>
