@@ -9,20 +9,24 @@
     <?php
     require_once 'connect_database.php';
 
-    if (isset($_POST['submit'])) {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
+    try {
+        if (isset($_POST['submit'])) {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
 
-        $stmt = $conn->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-        $stmt->bind_param("ss", $name, $email);
-        $result = $stmt->execute();
-        $stmt->close();
+            $stmt = $conn->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+            $stmt->bind_param("ss", $name, $email);
+            $result = $stmt->execute();
+            $stmt->close();
 
-        if ($result) {
-            echo "Record added successfully!";
-        } else {
-            echo "Error: " . $conn->error;
+            if ($result) {
+                echo "Record added successfully!";
+            } else {
+                echo "Error: " . $conn->error;
+            }
         }
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
     }
     ?>
     <a href="read.php">Back to list</a>

@@ -9,27 +9,31 @@
     <?php
     require_once 'connect_database.php';
 
-    if (isset($_POST['update'])) {
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
+    try {
+        if (isset($_POST['update'])) {
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $email = $_POST['email'];
 
-        $stmt = $conn->prepare("UPDATE users SET name=?, email=? WHERE id=?");
-        $stmt->bind_param("ssi", $name, $email, $id);
-        $result = $stmt->execute();
-        $stmt->close();
+            $stmt = $conn->prepare("UPDATE users SET name=?, email=? WHERE id=?");
+            $stmt->bind_param("ssi", $name, $email, $id);
+            $result = $stmt->execute();
+            $stmt->close();
 
-        if ($result) {
-            echo "Record updated successfully!";
-        } else {
-            echo "Error: " . $conn->error;
+            if ($result) {
+                echo "Record updated successfully!";
+            } else {
+                echo "Error: " . $conn->error;
+            }
         }
-    }
 
-    $id = $_GET['id'];
-    $query = "SELECT * FROM users WHERE id=$id";
-    $result = $conn->query($query);
-    $user = $result->fetch_assoc();
+        $id = $_GET['id'];
+        $query = "SELECT * FROM users WHERE id=$id";
+        $result = $conn->query($query);
+        $user = $result->fetch_assoc();
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
     ?>
     <a href="read.php">Back to list</a>
     <h1>Update User</h1>
