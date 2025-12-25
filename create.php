@@ -15,17 +15,13 @@
             $email = $_POST['email'];
 
             $stmt = $conn->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-            $stmt->bind_param("ss", $name, $email);
-            $result = $stmt->execute();
-            $stmt->close();
+            $result = $stmt->execute([$name, $email]);
 
             if ($result) {
                 echo "Record added successfully!";
-            } else {
-                echo "Error: " . $conn->error;
             }
         }
-    } catch (Exception $e) {
+    } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
     ?>

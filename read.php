@@ -13,9 +13,10 @@
         try {
             $query = "SELECT * FROM users";
             $result = $conn->query($query);
+            $rows = $result->fetchAll(PDO::FETCH_ASSOC);
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
+            if (count($rows) > 0) {
+                foreach ($rows as $row) {
                     echo '<a href="update.php?id=' . $row['id'] . '">Update</a> | ';
                     echo '<a href="delete.php?id=' . $row['id'] . '">Delete</a> | ';
                     echo $row['name'] . ' - ' . $row['email'] . "<br>";
@@ -23,7 +24,7 @@
             } else {
                 echo "No users found";
             }
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
         ?>

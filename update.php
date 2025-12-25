@@ -16,22 +16,18 @@
             $email = $_POST['email'];
 
             $stmt = $conn->prepare("UPDATE users SET name=?, email=? WHERE id=?");
-            $stmt->bind_param("ssi", $name, $email, $id);
-            $result = $stmt->execute();
-            $stmt->close();
+            $result = $stmt->execute([$name, $email, $id]);
 
             if ($result) {
                 echo "Record updated successfully!";
-            } else {
-                echo "Error: " . $conn->error;
             }
         }
 
         $id = $_GET['id'];
-        $query = "SELECT * FROM users WHERE id=$id";
-        $result = $conn->query($query);
-        $user = $result->fetch_assoc();
-    } catch (Exception $e) {
+        $stmt = $conn->prepare("SELECT * FROM users WHERE id=?");
+        $stmt->execute([$id]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
     ?>

@@ -19,28 +19,29 @@
             </thead>
             <tbody>
                 <?php
-                require_once 'connect_database.php';
+                require_once '../connect_database.php';
                 
                 try {
                     $query = "SELECT * FROM users";
                     $result = $conn->query($query);
+                    $rows = $result->fetchAll(PDO::FETCH_ASSOC);
 
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
+                    if (count($rows) > 0) {
+                        foreach ($rows as $row) {
                             echo '<tr>';
-                            echo '<td>' . $row['name'] . '</td>';
-                            echo '<td>' . $row['email'] . '</td>';
+                            echo '<td>' . htmlspecialchars($row['name']) . '</td>';
+                            echo '<td>' . htmlspecialchars($row['email']) . '</td>';
                             echo '<td>';
-                            echo '<a href="update.php?id=' . $row['id'] . '">Update</a> | ';
-                            echo '<a href="delete.php?id=' . $row['id'] . '">Delete</a>';
+                            echo '<a href="../update.php?id=' . $row['id'] . '">Update</a> | ';
+                            echo '<a href="../delete.php?id=' . $row['id'] . '">Delete</a>';
                             echo '</td>';
                             echo '</tr>';
                         }
                     } else {
                         echo '<tr><td colspan="3">No users found</td></tr>';
                     }
-                } catch (Exception $e) {
-                    echo '<tr><td colspan="3">Error: ' . $e->getMessage() . '</td></tr>';
+                } catch (PDOException $e) {
+                    echo '<tr><td colspan="3">Error: ' . htmlspecialchars($e->getMessage()) . '</td></tr>';
                 }
                 ?>
             </tbody>

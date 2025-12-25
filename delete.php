@@ -14,17 +14,13 @@
             $id = $_POST['id'];
 
             $stmt = $conn->prepare("DELETE FROM users WHERE id=?");
-            $stmt->bind_param("i", $id);
-            $result = $stmt->execute();
-            $stmt->close();
+            $result = $stmt->execute([$id]);
 
             if ($result) {
                 echo "Record deleted successfully!";
-            } else {
-                echo "Error: " . $conn->error;
             }
         }
-    } catch (Exception $e) {
+    } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
     ?>
