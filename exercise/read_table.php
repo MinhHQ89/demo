@@ -17,9 +17,9 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="users-list">
                 <?php
-                require_once '../connect_database.php';
+                require_once 'connect_database.php';
                 
                 try {
                     $query = "SELECT * FROM users";
@@ -28,12 +28,12 @@
 
                     if (count($rows) > 0) {
                         foreach ($rows as $row) {
-                            echo '<tr>';
+                            echo '<tr id="user-' . $row['id'] . '">';
                             echo '<td>' . htmlspecialchars($row['name']) . '</td>';
                             echo '<td>' . htmlspecialchars($row['email']) . '</td>';
                             echo '<td>';
-                            echo '<a href="../update.php?id=' . $row['id'] . '">Update</a> | ';
-                            echo '<a href="../delete.php?id=' . $row['id'] . '">Delete</a>';
+                            echo '<a href="update.php?id=' . $row['id'] . '">Update</a> | ';
+                            echo '<a href="#" class="delete-link" data-id="' . $row['id'] . '">Delete</a>';
                             echo '</td>';
                             echo '</tr>';
                         }
@@ -46,6 +46,8 @@
                 ?>
             </tbody>
         </table>
+
+        <script src="delete_table.js"></script>
     </body>
 </html>
 
