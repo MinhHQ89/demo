@@ -10,23 +10,25 @@
     require_once 'connect_database.php';
 
     try {
-        if (isset($_POST['update']) && !empty($_POST['name']) && !empty($_POST['email'])) {
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $email = $_POST['email'];
+        if (isset($_POST['update'])) {
+            if (!empty($_POST['name']) && !empty($_POST['email'])) {
+                $id = $_POST['id'];
+                $name = $_POST['name'];
+                $email = $_POST['email'];
 
-            $stmt = $conn->prepare("UPDATE users SET name=?, email=? WHERE id=?");
-            $result = $stmt->execute([$name, $email, $id]);
+                $stmt = $conn->prepare("UPDATE users SET name=?, email=? WHERE id=?");
+                $result = $stmt->execute([$name, $email, $id]);
 
-            if ($result) {
-                echo "Record updated successfully!";
+                if ($result) {
+                    echo "Record updated successfully!";
+                }
+                else {
+                    echo "Record updated failed!";
+                }
             }
             else {
-                echo "Record updated failed!";
+              echo "Name and email are required!";
             }
-        }
-        else {
-            echo "Name and email are required!";
         }
 
         if (isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id'])) {
