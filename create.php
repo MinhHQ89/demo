@@ -10,7 +10,7 @@
     require_once 'connect_database.php';
 
     try {
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['submit']) && !empty($_POST['name']) && !empty($_POST['email'])) {
             $name = $_POST['name'];
             $email = $_POST['email'];
 
@@ -20,6 +20,12 @@
             if ($result) {
                 echo "Record added successfully!";
             }
+            else {
+                echo "Record added failed!";
+            }
+        }
+        else {
+            echo "Name and email are required!";
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();

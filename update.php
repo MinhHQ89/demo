@@ -10,7 +10,7 @@
     require_once 'connect_database.php';
 
     try {
-        if (isset($_POST['update'])) {
+        if (isset($_POST['update']) && !empty($_POST['name']) && !empty($_POST['email'])) {
             $id = $_POST['id'];
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -21,12 +21,24 @@
             if ($result) {
                 echo "Record updated successfully!";
             }
+            else {
+                echo "Record updated failed!";
+            }
+        }
+        else {
+            echo "Name and email are required!";
         }
 
-        $id = $_GET['id'];
-        $stmt = $conn->prepare("SELECT * FROM users WHERE id=?");
-        $stmt->execute([$id]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id'])) {
+            $id = $_GET['id'];
+            $stmt = $conn->prepare("SELECT * FROM users WHERE id=?");
+            $stmt->execute([$id]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        else {
+          echo "ID is required and must be a number!";
+          exit;
+        }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
