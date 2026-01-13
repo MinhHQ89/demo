@@ -16,14 +16,19 @@
                 $name = $_POST['name'];
                 $email = $_POST['email'];
 
-                $stmt = $conn->prepare("UPDATE users SET name=?, email=? WHERE id=?");
-                $result = $stmt->execute([$name, $email, $id]);
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $stmt = $conn->prepare("UPDATE users SET name=?, email=? WHERE id=?");
+                    $result = $stmt->execute([$name, $email, $id]);
 
-                if ($result) {
-                    echo "Record updated successfully!";
+                    if ($result) {
+                        echo "Record updated successfully!";
+                    }
+                    else {
+                        echo "Record updated failed!";
+                    }
                 }
                 else {
-                    echo "Record updated failed!";
+                    echo "Email is not valid!";
                 }
             }
             else {

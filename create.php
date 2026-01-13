@@ -15,14 +15,19 @@
                 $name = $_POST['name'];
                 $email = $_POST['email'];
 
-                $stmt = $conn->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-                $result = $stmt->execute([$name, $email]);
-
-                if ($result) {
-                    echo "Record added successfully!";
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $stmt = $conn->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+                    $result = $stmt->execute([$name, $email]);
+    
+                    if ($result) {
+                        echo "Record added successfully!";
+                    }
+                    else {
+                        echo "Record added failed!";
+                    }
                 }
                 else {
-                    echo "Record added failed!";
+                    echo "Email is not valid!";
                 }
             }
             else {
